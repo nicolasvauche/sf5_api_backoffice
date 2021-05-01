@@ -1,0 +1,20 @@
+table {
+    thead {
+        tr {
+            th {
+                background-color: #222222 !important;
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            td {
+                img {
+                    width: 3rem;
+                    border-radius: 0.25rem;
+                }
+            }
+        }
+    }
+}

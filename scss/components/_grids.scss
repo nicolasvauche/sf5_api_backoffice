@@ -1,0 +1,66 @@
+.app-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1.5rem;
+
+    @include for-tablet {
+        &.four {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @include for-desktop {
+        &.four {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    .grid-item {
+        background-color: #222222;
+        border-radius: 0.5rem;
+        box-shadow: 4px 4px 12px #000000;
+        transition: all 0.5s;
+
+        &:hover {
+            transform: scale(1.025);
+        }
+
+        .grid-item-header {
+            position: relative;
+        }
+
+        .grid-item-img {
+            display: block;
+            object-fit: cover;
+            cursor: pointer;
+
+            &.top {
+                border-top-left-radius: 0.5rem;
+                border-top-right-radius: 0.5rem;
+            }
+        }
+
+        .grid-item-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: 0;
+            padding: 0.25rem 1rem;
+            background-color: rgba(#000000, 0.85);
+        }
+
+        .grid-item-excerpt {
+            padding: 0 1.5rem;
+            text-align: justify;
+            text-justify: auto;
+            hyphens: auto;
+
+            a {
+                font-weight: bold;
+                color: #85ac85;
+                text-decoration: none;
+            }
+        }
+    }
+}
