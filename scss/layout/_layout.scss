@@ -8,20 +8,9 @@ html {
         background-color: #666666;
 
         & > header {
-            padding: 0.5rem;
-            text-align: center;
-            background-color: #222222;
-
-            @include for-tablet {
-                padding: 1rem;
-            }
-
-            @include for-desktop {
-                padding: 1rem 1.5rem;
-            }
-
-            h1 {
+            .navbar-brand {
                 font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+                font-weight: bold;
                 text-transform: uppercase;
                 letter-spacing: 2px;
             }
