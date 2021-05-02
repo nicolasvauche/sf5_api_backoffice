@@ -27,6 +27,11 @@ html {
                 font-weight: bold;
                 text-transform: uppercase;
                 letter-spacing: 2px;
+
+                img {
+                    margin-right: 0.5rem;
+                    width: 4rem;
+                }
             }
         }
 
@@ -43,11 +48,14 @@ html {
 
             .error {
                 padding: 1rem;
-                text-align: center;
                 color: white;
                 background-color: rgba(red, 0.5);
                 border: 1px solid red;
                 border-radius: 0.5rem;
+            }
+
+            & > .error {
+                text-align: center;
             }
 
             & > header {

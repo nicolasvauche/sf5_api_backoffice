@@ -1,7 +1,7 @@
 const token = '$2y$13$0JuJiCliJMS6PisdZSavqOfEwJIPAgOfZfiUft.D64/fdOKyv.4gm'
 const url = 'http://localhost:8000/admin'
 
-const getApiAnswer = () => {
+const getPosts = () => {
   window
     .fetch(url, {
       headers: {
@@ -82,7 +82,7 @@ const buildPost = post => {
   const tableCellActions = document.createElement('td')
   tableCellActions.classList.add('text-center')
   const postBtnEdit = document.createElement('a')
-  postBtnEdit.href = 'editPost.html?postId=' + post.id
+  postBtnEdit.href = 'editPost.html?postid=' + post.id
   postBtnEdit.classList.add('btn')
   postBtnEdit.classList.add('btn-secondary')
   postBtnEdit.classList.add('btn-sm')
@@ -98,9 +98,9 @@ const buildPost = post => {
   postBtnDelete.classList.add('btn-sm')
   postBtnDelete.innerHTML = '<i class="fas fa-trash"></i>'
   postBtnDelete.title = 'Supprimer cet article'
-  postBtnDelete.addEventListener('click', event => {
+  postBtnDelete.addEventListener('click', () => {
     if (window.confirm('Voulez-vous vraiment supprimer cet article ?')) {
-      deletePost(event.target)
+      deletePost(postBtnDelete)
     }
   })
   tableCellActions.appendChild(postBtnDelete)
@@ -109,10 +109,36 @@ const buildPost = post => {
   tablePosts.appendChild(tableRow)
 }
 
-const deletePost = post => {
-  console.log('Delete post #' + post.dataset.postid)
+const deletePost = input => {
+  const postId = input.dataset.postid
+  const urlDelete = 'http://localhost:8000/admin/post/delete/' + postId
+
+  window
+    .fetch(urlDelete, {
+      method: 'DELETE',
+      headers: {
+        'X-AUTH-TOKEN': token
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        console.log(response)
+        showError(response)
+      } else {
+        response.json().then(response => {
+          window.location.href = 'index.html'
+        })
+      }
+    })
+    .catch(error => {
+      console.log(error)
+      showError({
+        status: 404,
+        statusText: 'No server found'
+      })
+    })
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  getApiAnswer()
+  getPosts()
 })
