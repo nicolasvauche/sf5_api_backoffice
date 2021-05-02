@@ -45,7 +45,7 @@ const showError = error => {
   }
 
   headerElt.innerHTML =
-    '<h1><a href="index.html" class="navbar-brand">SF5 API Backoffice</a></h1>'
+    '<nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-center"><a class="navbar-brand" href="index.html" title="Retour à l\'accueil"><img src="img/logo.png" alt="SF5 API Backoffice" />SF5 API Backoffice</a></nav>'
 
   mainElt.innerHTML = ''
   mainElt.appendChild(errorElt)
