@@ -63,10 +63,12 @@ const buildPost = post => {
   const tableRow = document.createElement('tr')
 
   const tableCellId = document.createElement('td')
+  tableCellId.classList.add('text-end')
   tableCellId.innerHTML = post.id
   tableRow.appendChild(tableCellId)
 
   const tableCellImage = document.createElement('td')
+  tableCellImage.classList.add('text-center')
   const postImage = document.createElement('img')
   postImage.src = post.image
   postImage.alt = post.title
@@ -77,7 +79,38 @@ const buildPost = post => {
   tableCellTitle.innerHTML = post.title
   tableRow.appendChild(tableCellTitle)
 
+  const tableCellActions = document.createElement('td')
+  tableCellActions.classList.add('text-center')
+  const postBtnEdit = document.createElement('a')
+  postBtnEdit.href = 'editPost.html?postId=' + post.id
+  postBtnEdit.classList.add('btn')
+  postBtnEdit.classList.add('btn-secondary')
+  postBtnEdit.classList.add('btn-sm')
+  postBtnEdit.classList.add('me-2')
+  postBtnEdit.innerHTML = '<i class="fas fa-edit"></i>'
+  postBtnEdit.title = 'Modifier cet article'
+  tableCellActions.appendChild(postBtnEdit)
+
+  const postBtnDelete = document.createElement('button')
+  postBtnDelete.dataset.postid = post.id
+  postBtnDelete.classList.add('btn')
+  postBtnDelete.classList.add('btn-danger')
+  postBtnDelete.classList.add('btn-sm')
+  postBtnDelete.innerHTML = '<i class="fas fa-trash"></i>'
+  postBtnDelete.title = 'Supprimer cet article'
+  postBtnDelete.addEventListener('click', event => {
+    if (window.confirm('Voulez-vous vraiment supprimer cet article ?')) {
+      deletePost(event.target)
+    }
+  })
+  tableCellActions.appendChild(postBtnDelete)
+  tableRow.appendChild(tableCellActions)
+
   tablePosts.appendChild(tableRow)
+}
+
+const deletePost = post => {
+  console.log('Delete post #' + post.dataset.postid)
 }
 
 document.addEventListener('DOMContentLoaded', () => {
