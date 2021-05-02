@@ -1,12 +1,13 @@
 const token = '$2y$13$0JuJiCliJMS6PisdZSavqOfEwJIPAgOfZfiUft.D64/fdOKyv.4gm'
 const url = 'http://localhost:8000/admin/post/add'
 
+const formElement = document.getElementById('postAdd')
+const submitElement = document.getElementById('formSubmit')
 const formInputs = document.querySelectorAll(
   '#postAdd input, #postAdd textarea'
 )
 
 const addPost = () => {
-  const formElement = document.getElementById('postAdd')
   formElement.action = url
   formElement.addEventListener('submit', event => {
     event.preventDefault()
@@ -81,34 +82,20 @@ const validateInput = input => {
     errorElt.remove()
   }
 
-  if (input.required) {
-    if (input.value.length > 0 && input.value.length < 3) {
-      input.classList.add('error')
-      errorElt = document.createElement('p')
-      errorElt.id = input.id + 'error'
-      errorElt.classList.add('error')
-      errorElt.innerHTML = 'Veuillez saisir quelque chose de plus long svp'
+  if (input.value.length > 0 && input.value.length < 3) {
+    input.classList.add('error')
+    errorElt = document.createElement('p')
+    errorElt.id = input.id + 'error'
+    errorElt.classList.add('error')
+    errorElt.innerHTML = 'Veuillez saisir quelque chose de plus long svp'
 
-      input.parentElement.appendChild(errorElt)
+    input.parentElement.appendChild(errorElt)
 
-      return false
-    } else {
-      input.classList.remove('error')
-    }
+    submitElement.classList.add('disabled')
+
+    return false
   } else {
-    if (input.value.length > 0 && input.value.length < 3) {
-      input.classList.add('error')
-      errorElt = document.createElement('p')
-      errorElt.id = input.id + 'error'
-      errorElt.classList.add('error')
-      errorElt.innerHTML = 'Veuillez saisir quelque chose de plus long svp'
-
-      input.parentElement.appendChild(errorElt)
-
-      return false
-    } else {
-      input.classList.remove('error')
-    }
+    input.classList.remove('error')
   }
   return true
 }
@@ -117,6 +104,15 @@ document.addEventListener('DOMContentLoaded', () => {
   formInputs.forEach(input => {
     input.addEventListener('keyup', () => {
       validateInput(input)
+      let hasError = false
+      formInputs.forEach(input => {
+        if (!validateInput(input)) {
+          hasError = true
+        }
+      })
+      if (!hasError) {
+        submitElement.classList.remove('disabled')
+      }
     })
   })
 
