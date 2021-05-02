@@ -27,6 +27,7 @@ const getApiAnswer = () => {
 }
 
 const showError = error => {
+  const headerElt = document.querySelector('html > body > header')
   const mainElt = document.querySelector('html > body > main')
 
   const errorElt = document.createElement('p')
@@ -42,6 +43,9 @@ const showError = error => {
       errorElt.innerHTML = error
       break
   }
+
+  headerElt.innerHTML =
+    '<h1><a href="index.html" class="navbar-brand">SF5 API Backoffice</a></h1>'
 
   mainElt.innerHTML = ''
   mainElt.appendChild(errorElt)

@@ -8,6 +8,20 @@ html {
         background-color: #666666;
 
         & > header {
+            h1 {
+                padding: 0.25rem 0;
+                background-color: #222222;
+                text-align: center;
+
+                a {
+                    color: inherit;
+
+                    &:hover {
+                        color: inherit;
+                    }
+                }
+            }
+
             .navbar-brand {
                 font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
                 font-weight: bold;
@@ -29,6 +43,7 @@ html {
 
             .error {
                 padding: 1rem;
+                text-align: center;
                 color: white;
                 background-color: rgba(red, 0.5);
                 border: 1px solid red;

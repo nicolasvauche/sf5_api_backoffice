@@ -1,4 +1,5 @@
 const token = '$2y$13$0JuJiCliJMS6PisdZSavqOfEwJIPAgOfZfiUft.D64/fdOKyv.4gm'
+const urlCheck = 'http://localhost:8000/admin'
 const url = 'http://localhost:8000/admin/post/add'
 
 const formElement = document.getElementById('postAdd')
@@ -56,6 +57,7 @@ const addPost = () => {
 }
 
 const showError = error => {
+  const headerElt = document.querySelector('html > body > header')
   const mainElt = document.querySelector('html > body > main')
 
   const errorElt = document.createElement('p')
@@ -71,6 +73,9 @@ const showError = error => {
       errorElt.innerHTML = error
       break
   }
+
+  headerElt.innerHTML =
+    '<h1><a href="index.html" class="navbar-brand">SF5 API Backoffice</a></h1>'
 
   mainElt.innerHTML = ''
   mainElt.appendChild(errorElt)
@@ -116,5 +121,27 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   })
 
-  addPost()
+  window
+    .fetch(urlCheck, {
+      headers: {
+        'X-AUTH-TOKEN': token
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        showError(response)
+      } else {
+        response.json().then(response => {
+          addPost()
+        })
+      }
+    })
+    .catch(error => {
+      console.log(error)
+      showError({
+        status: 404,
+        statusText: 'No server found'
+      })
+      window.location.href = 'index.html'
+    })
 })
